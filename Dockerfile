@@ -3,6 +3,7 @@ MAINTAINER Danielle Jenkins
 
 # Based off of Moul's weechat container, but more up to date and with some changes for better practices.
 
+ENV DEBIAN_FRONTEND noninteractive
 ENV TERM screen-256color
 ENV LANG C.UTF-8
 
