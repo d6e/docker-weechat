@@ -1,22 +1,19 @@
-FROM moul/tmux
-MAINTAINER Manfred Touron m@42.am
+FROM ubuntu
+MAINTAINER Danielle Jenkins
 
-# Inspired by https://github.com/creack/weechat-docker/blob/master/Dockerfile
-
-RUN apt-get update && \
-    apt-get -qq -y install python-software-properties && \
-    add-apt-repository ppa:nesthib/weechat-stable && \
-    apt-get -qq -y update  && \
-    apt-get clean
+# Based off of Moul's weechat container, but more up to date and with some changes for better practices.
 
 ENV TERM screen-256color
 ENV LANG C.UTF-8
 
-RUN apt-get -qq -y install weechat && \
+RUN apt-get update && \
+    apt-get -qq -y install software-properties-common && \
+    add-apt-repository ppa:nesthib/weechat-stable && \
+    apt-get -qq -y update  && \
+    apt-get -qq -y install weechat && \
     apt-get clean
 
 RUN useradd -m -d /weechat weechat
-ADD command /root/command
 ADD http://www.weechat.org/files/scripts/weeget.py /weechat/.weechat/python/
 RUN mkdir -p /weechat/.weechat/python/autoload && \
     ln -s /weechat/.weechat/python/weeget.py /weechat/.weechat/python/autoload/weeget.py
@@ -25,4 +22,6 @@ RUN mkdir -p /weechat/.weechat/python/autoload && \
 
 EXPOSE 8000 8001 8002
 
-CMD ["run-docker-tmux"]
+CMD ["/bin/bash"]
+#chown -R weechat:weechat ~weechat
+#su weechat -c weechat-curses
