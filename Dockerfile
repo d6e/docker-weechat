@@ -1,11 +1,9 @@
-FROM ubuntu
+FROM ubuntu:14:04
 MAINTAINER Danielle Jenkins
 
 # Based off of Moul's weechat container, but more up to date and with some changes for better practices.
 
-ENV DEBIAN_FRONTEND noninteractive
-ENV TERM screen-256color
-ENV LANG C.UTF-8
+ENV DEBIAN_FRONTEND=noninteractive TERM=screen-256color LANG=C.UTF-8
 
 RUN apt-get update && \
     apt-get -qq -y install software-properties-common && \
