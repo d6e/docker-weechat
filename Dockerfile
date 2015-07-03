@@ -1,4 +1,4 @@
-FROM ubuntu:14:04
+FROM ubuntu:14.04
 MAINTAINER Danielle Jenkins
 
 # Based off of Moul's weechat container, but more up to date and with some changes for better practices.
