@@ -10,6 +10,7 @@ RUN apt-get update && \
     add-apt-repository ppa:nesthib/weechat-stable && \
     apt-get -qq -y update  && \
     apt-get -qq -y install weechat && \
+    apt-get -qq -y install tmux && \
     apt-get clean
 
 RUN useradd -m -d /weechat weechat
@@ -21,6 +22,4 @@ RUN mkdir -p /weechat/.weechat/python/autoload && \
 
 EXPOSE 8000 8001 8002
 
-CMD ["/bin/bash"]
-#chown -R weechat:weechat ~weechat
-#su weechat -c weechat-curses
+CMD ["/usr/bin/tmux", "new", "-s", "weechat-session", "'/usr/bin/weechat-curses'"]
