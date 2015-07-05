@@ -13,13 +13,14 @@ RUN apt-get update && \
     apt-get -qq -y install tmux && \
     apt-get clean
 
-RUN useradd -m -d /weechat weechat
-ADD http://www.weechat.org/files/scripts/weeget.py /weechat/.weechat/python/
-RUN mkdir -p /weechat/.weechat/python/autoload && \
-    ln -s /weechat/.weechat/python/weeget.py /weechat/.weechat/python/autoload/weeget.py
+ENV WEECHAT_HOME=/opt/weechat
+RUN useradd weechat #&& mkdir -p $WEECHAT_HOME && chown -R weechat:weechat $WEECHAT_HOME
 
-#VOLUME ["/weechat"]
+ADD http://www.weechat.org/files/scripts/weeget.py $WEECHAT_HOME/python/
+RUN mkdir -p $WEECHAT_HOME/python/autoload && \
+    ln -s $WEECHAT_HOME/python/weeget.py $WEECHAT_HOME/python/autoload/weeget.py
 
 EXPOSE 8000 8001 8002
 
-CMD ["/usr/bin/tmux", "new", "-s", "weechat-session", "'/usr/bin/weechat-curses'"]
+USER weechat
+CMD ["/usr/bin/tmux", "new", "-s", "weechat", "'/usr/bin/weechat-curses'"]
