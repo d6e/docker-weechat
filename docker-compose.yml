@@ -3,9 +3,7 @@ weechat:
     volumes:
         - /opt/weechat
     ports:
-        - "9000:9998"
-        - "9001:9999"
-data:
-    build: .
+        - "9000:9000"
+        - "9001:9001"
     volumes_from:
         - weechat
