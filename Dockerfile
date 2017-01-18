@@ -22,5 +22,5 @@ RUN mkdir -p $WEECHAT_HOME/python/autoload && \
 
 EXPOSE 8000 8001 8002
 
-USER weechat
+VOLUME $WEECHAT_HOME
 CMD ["/usr/bin/tmux", "new", "-s", "weechat", "'/usr/bin/weechat-curses'"]
